@@ -53,4 +53,10 @@ class StackTest {
   void onPopStackUnderflows() {
     assertThrows(Stack.Underflow.class, () -> stack.pop());
   }
+
+  @Test
+  void onPushAndPopSameValueIsReceived() {
+    stack.push(1);
+    assertEquals(1, stack.pop());
+  }
 }
