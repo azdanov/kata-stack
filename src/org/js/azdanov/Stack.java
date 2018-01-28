@@ -4,10 +4,11 @@ public class Stack {
 
   private int size = 0;
   private int capacity;
-  private int element;
+  private int elements[];
 
   private Stack(int capacity) {
     this.capacity = capacity;
+    elements = new int[capacity];
   }
 
   public static Stack Make(int capacity) {
@@ -26,16 +27,14 @@ public class Stack {
     if (size == capacity) {
       throw new Overflow();
     }
-    size++;
-    this.element = element;
+    this.elements[size++] = element;
   }
 
   public int pop() {
     if (size == 0) {
       throw new Underflow();
     }
-    size--;
-    return element;
+    return elements[--size];
   }
 
   public class Overflow extends RuntimeException {}
