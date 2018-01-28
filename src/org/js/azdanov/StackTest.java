@@ -48,4 +48,9 @@ class StackTest {
           stack.push(3);
         });
   }
+
+  @Test
+  void onPopStackUnderflows() {
+    assertThrows(Stack.Underflow.class, () -> stack.pop());
+  }
 }
