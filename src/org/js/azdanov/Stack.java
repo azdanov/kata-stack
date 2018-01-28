@@ -12,6 +12,9 @@ public class Stack {
   }
 
   public static Stack Make(int capacity) {
+    if (capacity < 0) {
+      throw new IllegalCapacity();
+    }
     return new Stack(capacity);
   }
 
@@ -36,6 +39,8 @@ public class Stack {
     }
     return elements[--size];
   }
+
+  public static class IllegalCapacity extends RuntimeException {}
 
   public class Overflow extends RuntimeException {}
 
