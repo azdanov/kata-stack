@@ -2,6 +2,7 @@ package org.js.azdanov;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,7 @@ class StackTest {
 
   @BeforeEach
   public void setUp() {
-    stack = new Stack();
+    stack = Stack.Make(2);
   }
 
   @Test
@@ -35,5 +36,16 @@ class StackTest {
     stack.pop();
     assertEquals(0, stack.getSize());
     assertTrue(stack.isEmpty());
+  }
+
+  @Test
+  void onPushStackOverflows() {
+    assertThrows(
+        Stack.Overflow.class,
+        () -> {
+          stack.push(1);
+          stack.push(2);
+          stack.push(3);
+        });
   }
 }
