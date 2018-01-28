@@ -28,4 +28,12 @@ class StackTest {
     assertEquals(1, stack.getSize());
     assertFalse(stack.isEmpty());
   }
+
+  @Test
+  void onPushPopStackSizeIsZero() {
+    stack.push(1);
+    stack.pop();
+    assertEquals(0, stack.getSize());
+    assertTrue(stack.isEmpty());
+  }
 }
