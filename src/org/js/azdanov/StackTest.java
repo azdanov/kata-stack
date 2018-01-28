@@ -14,7 +14,7 @@ class StackTest {
 
   @BeforeEach
   public void setUp() {
-    stack = Stack.Make(2);
+    stack = BoundedStack.Make(2);
   }
 
   @Test
@@ -41,7 +41,7 @@ class StackTest {
   @Test
   void onPushStackOverflows() {
     assertThrows(
-        Stack.Overflow.class,
+        BoundedStack.Overflow.class,
         () -> {
           stack.push(1);
           stack.push(2);
@@ -51,7 +51,7 @@ class StackTest {
 
   @Test
   void onPopStackUnderflows() {
-    assertThrows(Stack.Underflow.class, () -> stack.pop());
+    assertThrows(BoundedStack.Underflow.class, () -> stack.pop());
   }
 
   @Test
@@ -70,6 +70,18 @@ class StackTest {
 
   @Test
   void onNegativeSizeStackCreationThrowIllegalCapacity() {
-    assertThrows(Stack.IllegalCapacity.class, () -> Stack.Make(-1));
+    assertThrows(BoundedStack.IllegalCapacity.class, () -> BoundedStack.Make(-1));
+  }
+
+  @Test
+  void onPushZeroCapacityStackOverflows() {
+    stack = BoundedStack.Make(0);
+    assertThrows(BoundedStack.Overflow.class, () -> stack.push(1));
+  }
+
+  @Test
+  void onPopZeroCapacityStackUnderflows() {
+    stack = BoundedStack.Make(0);
+    assertThrows(BoundedStack.Overflow.class, () -> stack.pop());
   }
 }
