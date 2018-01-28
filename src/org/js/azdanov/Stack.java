@@ -1,14 +1,18 @@
 package org.js.azdanov;
 
 public class Stack {
-  private boolean empty = true;
+
   private int size = 0;
 
   public boolean isEmpty() {
-    return empty;
+    return size == 0;
   }
 
   public int getSize() {
     return size;
+  }
+
+  public void push(int element) {
+    size++;
   }
 }
