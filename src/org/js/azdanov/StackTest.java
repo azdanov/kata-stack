@@ -2,6 +2,7 @@ package org.js.azdanov;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -100,5 +101,26 @@ class StackTest {
   void onZeroCapacityStackTopThrowsEmpty() {
     stack = BoundedStack.Make(0);
     assertThrows(BoundedStack.Empty.class, () -> stack.top());
+  }
+
+  @Test
+  void onStackWithElementsFindCorrectIndex() {
+    stack.push(10);
+    stack.push(20);
+    assertEquals(Integer.valueOf(1), stack.find(10));
+    assertEquals(Integer.valueOf(0), stack.find(20));
+  }
+
+  @Test
+  void onStackWithoutCorrectElementsFindReturnsNull() {
+    stack.push(10);
+    stack.push(20);
+    assertNull(stack.find(2));
+  }
+
+  @Test
+  void onZeroCapacityStackFindReturnsNull() {
+    stack = BoundedStack.Make(0);
+    assertNull(stack.find(2));
   }
 }

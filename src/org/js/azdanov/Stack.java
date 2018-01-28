@@ -12,6 +12,8 @@ public interface Stack {
 
   int top();
 
+  Integer find(int element);
+
   class Overflow extends RuntimeException {}
 
   class Underflow extends RuntimeException {}
