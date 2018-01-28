@@ -82,6 +82,23 @@ class StackTest {
   @Test
   void onPopZeroCapacityStackUnderflows() {
     stack = BoundedStack.Make(0);
-    assertThrows(BoundedStack.Overflow.class, () -> stack.pop());
+    assertThrows(BoundedStack.Underflow.class, () -> stack.pop());
+  }
+
+  @Test
+  void onValuePushSameValueIsOnTop() {
+    stack.push(1);
+    assertEquals(1, stack.top());
+  }
+
+  @Test
+  void onEmptyStackTopThrowsEmpty() {
+    assertThrows(BoundedStack.Empty.class, () -> stack.top());
+  }
+
+  @Test
+  void onZeroCapacityStackTopThrowsEmpty() {
+    stack = BoundedStack.Make(0);
+    assertThrows(BoundedStack.Empty.class, () -> stack.top());
   }
 }

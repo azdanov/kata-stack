@@ -21,15 +21,6 @@ public class BoundedStack implements Stack {
     return new BoundedStack(capacity);
   }
 
-  @Override
-  public boolean isEmpty() {
-    return size == 0;
-  }
-
-  public static class Overflow extends RuntimeException {}
-
-  public static class Underflow extends RuntimeException {}
-
   private static class ZeroCapacityStack implements Stack {
 
     @Override
@@ -51,6 +42,16 @@ public class BoundedStack implements Stack {
     public int pop() {
       throw new Underflow();
     }
+
+    @Override
+    public int top() {
+      throw new Empty();
+    }
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return size == 0;
   }
 
   @Override
@@ -68,9 +69,17 @@ public class BoundedStack implements Stack {
 
   @Override
   public int pop() {
-    if (size == 0) {
+    if (isEmpty()) {
       throw new Underflow();
     }
     return elements[--size];
+  }
+
+  @Override
+  public int top() {
+    if (isEmpty()) {
+      throw new Empty();
+    }
+    return elements[size - 1];
   }
 }
